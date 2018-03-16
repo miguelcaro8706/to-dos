@@ -17,6 +17,15 @@ class App extends Component {
       });
     });
   }
+  toggleTodo = todoId => {
+    const { todos } = this.state;
+    const newTodos = todos.map(function(todo, idx) {
+      return todo.id === todoId ? Object.assign({}, todo, { completed: !todo.completed }) : todo;
+    });
+    this.setState({
+      todos: newTodos
+    });
+  };
   render() {
     const { todos } = this.state;
     return (
@@ -25,7 +34,7 @@ class App extends Component {
           <NavbarBrand href="/">To-dos App</NavbarBrand>
         </Navbar>
         <Container fluid={true}>
-          <Todos todos={todos} />
+          <Todos todos={todos} toggleTodo={this.toggleTodo} />
         </Container>
       </Fragment>
     );

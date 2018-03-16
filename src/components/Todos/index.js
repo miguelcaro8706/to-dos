@@ -1,7 +1,12 @@
 import React, { Fragment } from "react";
-import { ListGroup, ListGroupItem, Badge } from "reactstrap";
+import { ListGroup, ListGroupItem, Input, FormGroup, Label } from "reactstrap";
 
-const Todos = ({ todos }) => {
+const isCompleted = {
+  opacity: "0.7",
+  textDecoration: "line-through"
+};
+
+const Todos = ({ todos, toggleTodo }) => {
   return (
     <Fragment>
       <h2>Todo list</h2>
@@ -9,7 +14,21 @@ const Todos = ({ todos }) => {
         {todos.map(function(todo, index) {
           return (
             <ListGroupItem key={index}>
-              {todo.title} {todo.completed && <Badge pill>completed</Badge>}
+              <FormGroup check>
+                <Label check>
+                  <Input
+                    type="checkbox"
+                    id={todo.id}
+                    checked={todo.completed}
+                    onChange={() => {
+                      toggleTodo(todo.id);
+                    }}
+                  />{" "}
+                  <span style={todo.completed ? isCompleted : {}}>
+                    {todo.title}
+                  </span>
+                </Label>
+              </FormGroup>
             </ListGroupItem>
           );
         })}
